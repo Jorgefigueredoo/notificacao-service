@@ -31,7 +31,8 @@ public class notificacaoController {
         for (UsuarioDTO usuario : usuarios) {
             logEnvio.append("Email de boas-vindas enviado para: ")
                     .append(usuario.email())
-                    .append("/n");
+                    .append("\n"
+);
         }
 
         return ResponseEntity.ok(logEnvio.toString());
