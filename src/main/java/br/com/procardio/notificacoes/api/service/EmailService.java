@@ -13,7 +13,7 @@ import jakarta.mail.internet.MimeMessage;
 
 @Service
 public class EmailService {
-    
+
     @Autowired
     private JavaMailSender javaMailSender;
 
@@ -45,5 +45,21 @@ public class EmailService {
             System.err.println("Erro ao enviar e-mail: " + ex.getMessage());
         }
     }
-    
+
+    public void enviarEmail(String destinatario, String assunto, String corpoTexto) {
+        try {
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, "UTF-8");
+
+            helper.setFrom(remetente);
+            helper.setTo(destinatario);
+            helper.setSubject(assunto);
+            helper.setText(corpoTexto, false); // texto simples
+
+            javaMailSender.send(message);
+        } catch (MessagingException ex) {
+            System.err.println("Erro ao enviar e-mail: " + ex.getMessage());
+        }
+    }
+
 }
